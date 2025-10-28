@@ -25,6 +25,7 @@ const features = [
     description: "Adaptive quiz system that learns your progress and adjusts difficulty",
     gradient: "from-blue-400 to-cyan-500",
     details: "Personalized learning paths based on your performance",
+    href: "/quiz",
   },
   {
     icon: "💡",
@@ -32,6 +33,7 @@ const features = [
     description: "AI-generated contextual explanations for every anatomical component",
     gradient: "from-pink-400 to-purple-500",
     details: "Deep learning insights at your fingertips",
+    href: "/explain",
   },
 ]
 
@@ -85,13 +87,14 @@ export function Features() {
           className="grid md:grid-cols-2 gap-6"
         >
           {features.map((feature, index) => (
-            <motion.div
+            <motion.a
               key={index}
               variants={itemVariants}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               whileHover={{ y: -10, boxShadow: "0 0 30px rgba(34,211,238,0.3)" }}
               className="group glass-dark border border-cyan-400/20 rounded-xl p-8 hover:border-cyan-400/50 transition-all cursor-pointer relative overflow-hidden"
+              href={(feature as any).href}
             >
               <motion.div
                 className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity`}
@@ -127,7 +130,7 @@ export function Features() {
                   className={`h-1 bg-gradient-to-r ${feature.gradient} mt-4 rounded-full`}
                 />
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
       </div>

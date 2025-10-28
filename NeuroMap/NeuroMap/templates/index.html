@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroMap - Anatomy Learning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Quiz Section -->
+            <div class="quiz-section">
+                <h2>Anatomy Quiz</h2>
+                <div class="quiz-controls">
+                    <select id="organ-select">
+                        <option value="heart">Heart</option>
+                        <option value="brain">Brain</option>
+                        <option value="lungs">Lungs</option>
+                        <option value="liver">Liver</option>
+                    </select>
+                    <select id="difficulty-select">
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                    <select id="num-questions-select">
+                        <option value="5">5 Questions</option>
+                        <option value="10" selected>10 Questions</option>
+                        <option value="20">20 Questions</option>
+                    </select>
+                    <button id="generate-quiz">Generate Quiz</button>
+                </div>
+                <div id="quiz-container" class="hidden">
+                    <div id="quiz-questions"></div>
+                    <button id="submit-quiz" class="hidden">Submit Quiz</button>
+                    <div id="quiz-results" class="hidden"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Chatbot Sidebar -->
+        <aside class="chatbot-sidebar">
+            <div class="chat-header">
+                <h3>Anatomy Assistant</h3>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message system">
+                    Hello! I'm your anatomy learning assistant. Ask me anything about human anatomy!
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-message" placeholder="Type your question...">
+                <button id="send-message">Send</button>
+            </div>
+        </aside>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
