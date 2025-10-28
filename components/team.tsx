@@ -6,23 +6,29 @@ import { useState } from "react"
 
 const teamMembers = [
   {
-    name: "Dr. Sarah Chen",
-    role: "Founder & Lead Researcher",
+    name: "Saumya Agarwal",
     avatar: "👩‍🔬",
-    bio: "PhD in Neuroscience with 10+ years in medical education",
+    role: "Lead Researcher",
+    bio: "Expert in anatomy research and educational content development."
   },
   {
-    name: "Alex Rodriguez",
-    role: "CTO & AI Specialist",
+    name: "Sinthana P",
     avatar: "👨‍💻",
-    bio: "Expert in 3D visualization and machine learning",
+    role: "Developer",
+    bio: "Full-stack developer with expertise in educational technology."
   },
   {
-    name: "Emma Thompson",
-    role: "Head of Design",
+    name: "Meghna Mandawra",
     avatar: "👩‍🎨",
-    bio: "Award-winning UX designer focused on education tech",
+    role: "Designer",
+    bio: "Creative UI/UX designer focused on intuitive learning experiences."
   },
+  {
+    name: "Kavya R",
+    avatar: "👨‍💻",
+    role: "Developer",
+    bio: "Specialized in interactive web applications and 3D visualization."
+  }
 ]
 
 export function Team() {

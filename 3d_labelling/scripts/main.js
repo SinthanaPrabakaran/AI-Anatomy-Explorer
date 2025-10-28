@@ -33,6 +33,21 @@ const organConfig = {
     model: "./models/kidney.glb",
     labels: "./output/kidney_labels.json",
     title: "3D Kidney Label Viewer"
+  },
+  brain: {
+    model: "./models/brain.glb",
+    labels: null, // No labels file yet
+    title: "3D Brain Viewer"
+  },
+  lungs: {
+    model: "./models/lungs2.glb",
+    labels: null, // No labels file yet
+    title: "3D Lungs Viewer"
+  },
+  liver: {
+    model: "./models/liver3.glb",
+    labels: null, // No labels file yet
+    title: "3D Liver Viewer"
   }
 };
 
@@ -166,19 +181,26 @@ async function loadOrgan(organType) {
       frameCameraToObject(model);
 
       // Load labels after model
-      fetch(config.labels)
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json();
-        })
-        .then((labels) => {
-          currentLabelGroup = addLabels(scene, labels);
-          enableLabelClick(currentLabelGroup);
-        })
-        .catch((err) => {
-          console.error("Failed to load labels:", err);
-          showInlineError(`Failed to load labels: ${err}`);
-        });
+      if (config.labels) {
+        fetch(config.labels)
+          .then((res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+          })
+          .then((labels) => {
+            currentLabelGroup = addLabels(scene, labels);
+            enableLabelClick(currentLabelGroup);
+          })
+          .catch((err) => {
+            console.error("Failed to load labels:", err);
+            showInlineError(`Failed to load labels: ${err}`);
+          });
+      } else {
+        // No labels available, show basic info
+        if (sidebar) {
+          sidebar.innerHTML = `<h3>${config.title}</h3><p>Model loaded successfully. No labels available yet.</p>`;
+        }
+      }
     },
     undefined,
     (err) => {
@@ -188,16 +210,19 @@ async function loadOrgan(organType) {
   );
 }
 
-// Set up dropdown listener
+// Set up input listener
 const organSelector = document.getElementById("organ-selector");
 if (organSelector) {
-  organSelector.addEventListener("change", (e) => {
-    loadOrgan(e.target.value);
+  organSelector.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const inputValue = e.target.value.toLowerCase().trim();
+      if (inputValue === "heart" || inputValue === "kidney" || inputValue === "brain" || inputValue === "lungs" || inputValue === "liver") {
+        loadOrgan(inputValue);
+      }
+    }
   });
 }
 
-// Load initial organ (heart)
-loadOrgan("heart");
 
 function animate() {
   requestAnimationFrame(animate);

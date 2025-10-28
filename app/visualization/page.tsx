@@ -44,9 +44,11 @@ export default function VisualizationPage() {
         controls.enableDamping = true
 
         // Organ selector
-        const organSelect = document.createElement("select")
-        organSelect.id = "organ-selector"
-        organSelect.style.cssText = `
+        const organInput = document.createElement("input")
+        organInput.id = "organ-selector"
+        organInput.type = "text"
+        organInput.placeholder = "Enter organ (e.g., heart, kidney, brain, lungs, liver)"
+        organInput.style.cssText = `
           position: absolute;
           top: 20px;
           right: 20px;
@@ -56,14 +58,10 @@ export default function VisualizationPage() {
           background: rgba(0,0,0,0.7);
           color: white;
           font-size: 14px;
-          cursor: pointer;
           z-index: 100;
+          width: 200px;
         `
-        organSelect.innerHTML = `
-          <option value="heart">Heart</option>
-          <option value="kidney">Kidney</option>
-        `
-        document.body.appendChild(organSelect)
+        document.body.appendChild(organInput)
 
         // Sidebar for label info
         const sidebar = document.createElement("div")
@@ -94,6 +92,18 @@ export default function VisualizationPage() {
           kidney: {
             model: "/3d_labelling/models/kidney.glb",
             labels: "/3d_labelling/output/kidney_labels.json",
+          },
+          brain: {
+            model: "/3d_labelling/models/brain.glb",
+            labels: null, // No labels file yet
+          },
+          lungs: {
+            model: "/3d_labelling/models/lungs2.glb",
+            labels: null, // No labels file yet
+          },
+          liver: {
+            model: "/3d_labelling/models/liver3.glb",
+            labels: null, // No labels file yet
           },
         }
 
@@ -221,15 +231,19 @@ export default function VisualizationPage() {
               scene.add(model)
               frameCameraToObject(model)
 
-              fetch(config.labels)
-                .then((res) => res.json())
-                .then((labels) => {
-                  currentLabelGroup = addLabels(scene, labels)
-                })
-                .catch((err) => {
-                  console.error("Failed to load labels:", err)
-                  sidebar.innerHTML = `<p style="color: #ef4444;">Failed to load labels</p>`
-                })
+              if (config.labels) {
+                fetch(config.labels)
+                  .then((res) => res.json())
+                  .then((labels) => {
+                    currentLabelGroup = addLabels(scene, labels)
+                  })
+                  .catch((err) => {
+                    console.error("Failed to load labels:", err)
+                    sidebar.innerHTML = `<p style="color: #ef4444;">Failed to load labels</p>`
+                  })
+              } else {
+                sidebar.innerHTML = `<h3 style="color: #22d3ee; margin: 0 0 8px 0;">${organType.charAt(0).toUpperCase() + organType.slice(1)}</h3><p style="margin: 0; color: #a3a3a3;">Model loaded successfully. No labels available yet.</p>`
+              }
             },
             undefined,
             (err) => {
@@ -239,11 +253,15 @@ export default function VisualizationPage() {
           )
         }
 
-        organSelect.addEventListener("change", (e: any) => {
-          loadOrgan(e.target.value)
+        organInput.addEventListener("keydown", (e: any) => {
+          if (e.key === "Enter") {
+            const inputValue = e.target.value.toLowerCase().trim()
+            if (inputValue === "heart" || inputValue === "kidney" || inputValue === "brain" || inputValue === "lungs" || inputValue === "liver") {
+              loadOrgan(inputValue)
+            }
+          }
         })
 
-        loadOrgan("heart")
 
         function animate() {
           requestAnimationFrame(animate)
@@ -264,7 +282,7 @@ export default function VisualizationPage() {
 
         return () => {
           window.removeEventListener("resize", handleResize)
-          if (organSelect.parentNode) organSelect.remove()
+          if (organInput.parentNode) organInput.remove()
           if (sidebar.parentNode) sidebar.remove()
         }
       } catch (error) {

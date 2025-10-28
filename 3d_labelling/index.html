@@ -46,17 +46,13 @@
   <style>
     body { margin: 0; overflow: hidden; background: #111; color: white; font-family: sans-serif; }
     #info { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 8px 12px; border-radius: 8px; display: flex; align-items: center; gap: 10px; }
-    select { padding: 6px 10px; border: 1px solid #555; border-radius: 4px; background: rgba(255,255,255,0.1); color: white; }
-    select option { background: #222; }
+    input { padding: 6px 10px; border: 1px solid #555; border-radius: 4px; background: rgba(255,255,255,0.1); color: white; width: 200px; }
   </style>
 </head>
 <body>
   <div id="info">
     <span id="title-text">3D Heart Label Viewer</span>
-    <select id="organ-selector">
-      <option value="heart">Heart</option>
-      <option value="kidney">Kidney</option>
-    </select>
+    <input id="organ-selector" type="text" placeholder="Enter organ (e.g., heart, kidney, brain, lungs, liver)" />
   </div>
   <script type="module" src="./scripts/main.js"></script>
 </body>
