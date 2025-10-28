@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Renal Cortex",
+    "short_description": "The outer layer of the kidney containing nephrons.",
+    "position": {
+      "x": 0.02,
+      "y": 0.3,
+      "z": 0.2
+    }
+  },
+  {
+    "name": "Renal Medulla",
+    "short_description": "The inner portion of the kidney containing renal pyramids.",
+    "position": {
+      "x": -0.01,
+      "y": -0.12,
+      "z": 0.12
+    }
+  },
+  {
+    "name": "Renal Pyramids",
+    "short_description": "Cone-shaped tissues within the medulla that contain collecting ducts.",
+    "position": {
+      "x": -0.06,
+      "y": -0.34,
+      "z": 0.07
+    }
+  },
+  {
+    "name": "Renal Artery",
+    "short_description": "The blood vessel that carries oxygenated blood to the kidney.",
+    "position": {
+      "x": 0.42,
+      "y": -0.16,
+      "z": 0.01
+    }
+  },
+  {
+    "name": "Renal Vein",
+    "short_description": "The blood vessel that carries deoxygenated blood away from the kidney.",
+    "position": {
+      "x": 0.41,
+      "y": -0.25,
+      "z": 0.07
+    }
+  },
+  {
+    "name": "Renal Pelvis",
+    "short_description": "Funnel-shaped structure that collects urine from the kidney.",
+    "position": {
+      "x": 0.24,
+      "y": -0.42,
+      "z": 0.06
+    }
+  },
+  {
+    "name": "Ureter",
+    "short_description": "The tube that carries urine from the kidney to the bladder.",
+    "position": {
+      "x": 0.55,
+      "y": -0.35,
+      "z": 0.01
+    }
+  }
+]

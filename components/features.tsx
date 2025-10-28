@@ -11,6 +11,7 @@ const features = [
     description: "Interactive 3D models of anatomical structures with real-time rotation and zoom",
     gradient: "from-cyan-400 to-blue-500",
     details: "Explore every angle with smooth, responsive controls",
+    href: "/visualization",
   },
   {
     icon: "🏷️",

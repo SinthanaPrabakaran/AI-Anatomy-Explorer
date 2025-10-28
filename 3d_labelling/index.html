@@ -1,0 +1,64 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VOID.V1 - 3D Heart Label Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <h2>VOID.V1 — 3D Heart Label Demo</h2>
+
+  <div id="main-layout">
+    <div id="canvas-container"></div>
+    <div id="info-panel">
+      <h3 id="label-title">Click a label</h3>
+      <p id="label-info">Select any floating label on the 3D model to learn more.</p>
+    </div>
+  </div>
+
+  <script type="module" src="scripts.js"></script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Heart Label Viewer</title>
+  <link rel="icon" href="data:,">
+  <script async src="https://unpkg.com/es-module-shims@1.9.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.164/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/"
+      }
+    }
+  </script>
+  <style>
+    body { margin: 0; overflow: hidden; background: #111; color: white; font-family: sans-serif; }
+    #info { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 8px 12px; border-radius: 8px; display: flex; align-items: center; gap: 10px; }
+    select { padding: 6px 10px; border: 1px solid #555; border-radius: 4px; background: rgba(255,255,255,0.1); color: white; }
+    select option { background: #222; }
+  </style>
+</head>
+<body>
+  <div id="info">
+    <span id="title-text">3D Heart Label Viewer</span>
+    <select id="organ-selector">
+      <option value="heart">Heart</option>
+      <option value="kidney">Kidney</option>
+    </select>
+  </div>
+  <script type="module" src="./scripts/main.js"></script>
+</body>
+</html>
+

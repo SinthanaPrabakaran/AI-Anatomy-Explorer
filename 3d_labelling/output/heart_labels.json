@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Aorta",
+    "short_description": "The main artery carrying oxygenated blood from the heart to the body.",
+    "position": {
+      "x": 0.1,
+      "y": 0.6,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Pulmonary Artery",
+    "short_description": "Carries deoxygenated blood from the right ventricle to the lungs.",
+    "position": {
+      "x": 0.3,
+      "y": 0.5,
+      "z": 0.3
+    }
+  },
+  {
+    "name": "Superior Vena Cava",
+    "short_description": "Large vein that returns deoxygenated blood from the upper body to the heart.",
+    "position": {
+      "x": -0.4,
+      "y": 0.5,
+      "z": -0.1
+    }
+  },
+  {
+    "name": "Inferior Vena Cava",
+    "short_description": "Large vein that returns deoxygenated blood from the lower body to the heart.",
+    "position": {
+      "x": -0.3,
+      "y": -0.5,
+      "z": -0.1
+    }
+  },
+  {
+    "name": "Left Atrium",
+    "short_description": "Receives oxygenated blood from the lungs and pumps it to the left ventricle.",
+    "position": {
+      "x": -0.4,
+      "y": 0.1,
+      "z": 0.1
+    }
+  },
+  {
+    "name": "Left Ventricle",
+    "short_description": "Pumps oxygenated blood to the aorta.",
+    "position": {
+      "x": 0.2,
+      "y": -0.3,
+      "z": -0.1
+    }
+  },
+  {
+    "name": "Right Atrium",
+    "short_description": "Receives deoxygenated blood from the body and pumps it to the right ventricle.",
+    "position": {
+      "x": -0.2,
+      "y": 0.0,
+      "z": -0.4
+    }
+  },
+  {
+    "name": "Right Ventricle",
+    "short_description": "Pumps deoxygenated blood to the pulmonary artery.",
+    "position": {
+      "x": -0.1,
+      "y": -0.2,
+      "z": 0.4
+    }
+  },
+  {
+    "name": "Pulmonary Veins",
+    "short_description": "Carry oxygenated blood from the lungs to the left atrium.",
+    "position": {
+      "x": 0.4,
+      "y": 0.2,
+      "z": 0.5
+    }
+  },
+  {
+    "name": "Coronary Vessels",
+    "short_description": "Blood vessels supplying the heart muscle with oxygen and nutrients.",
+    "position": {
+      "x": 0.3,
+      "y": -0.1,
+      "z": -0.3
+    }
+  }
+]
