@@ -1,8 +1,9 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { useState, useEffect } from "react"
 
+// Counter animation component
 const AnimatedCounter = ({ end, duration = 2 }: { end: number; duration?: number }) => {
   const [count, setCount] = useState(0)
 
@@ -25,7 +26,8 @@ const AnimatedCounter = ({ end, duration = 2 }: { end: number; duration?: number
 }
 
 export function Hero() {
-  const containerVariants = {
+  // ✅ Type-safe variants
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -36,36 +38,35 @@ export function Hero() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      // ✅ Fix: Framer Motion expects easing function/array, not string
+      transition: { duration: 0.8, ease: ["easeOut"] },
     },
   }
 
-  const AnimatedText = ({ text, className }: { text: string; className: string }) => {
-    return (
-      <span>
-        {text.split("").map((char, index) => (
-          <motion.span
-            key={index}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: index * 0.03,
-              ease: "easeOut",
-            }}
-            className={className}
-          >
-            {char}
-          </motion.span>
-        ))}
-      </span>
-    )
-  }
+  const AnimatedText = ({ text, className }: { text: string; className: string }) => (
+    <span>
+      {text.split("").map((char, index) => (
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.5,
+            delay: index * 0.03,
+            ease: ["easeOut"],
+          }}
+          className={className}
+        >
+          {char}
+        </motion.span>
+      ))}
+    </span>
+  )
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-20 px-4">
@@ -84,8 +85,11 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Main Headline */}
-        <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        {/* Headline */}
+        <motion.h1
+          variants={itemVariants}
+          className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+        >
           <div>
             <AnimatedText
               text="Turn Any Textbook"
@@ -99,12 +103,18 @@ export function Hero() {
         </motion.h1>
 
         {/* Subtitle */}
-        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+        <motion.p
+          variants={itemVariants}
+          className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto"
+        >
           AI 3D Self-Testing for Anatomy Learning
         </motion.p>
 
         {/* CTA Buttons */}
-        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center">
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(34,211,238,0.6)" }}
             whileTap={{ scale: 0.95 }}
@@ -112,6 +122,7 @@ export function Hero() {
           >
             Try Demo
           </motion.button>
+
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(168,85,247,0.6)" }}
             whileTap={{ scale: 0.95 }}
@@ -135,7 +146,11 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="mt-20 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+        {/* Stats */}
+        <motion.div
+          variants={itemVariants}
+          className="mt-20 grid grid-cols-3 gap-6 max-w-2xl mx-auto"
+        >
           {[
             { label: "Students", value: 50000 },
             { label: "Models", value: 500 },

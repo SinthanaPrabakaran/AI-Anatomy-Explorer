@@ -10,7 +10,7 @@ type QuizItem = {
   explanation: string
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_NEUROMAP_API_URL || "http://127.0.0.1:5000"
+const API_BASE = "" // use Next.js internal proxy routes
 
 export default function QuizPage() {
   const [organ, setOrgan] = useState("heart")
@@ -35,7 +35,7 @@ export default function QuizPage() {
     setAnswered(false)
     setScore(0)
     try {
-      const res = await fetch(`${API_BASE}/api/quiz`, {
+      const res = await fetch(`/api/quiz`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ organ, difficulty, num_questions: numQuestions }),
@@ -46,7 +46,7 @@ export default function QuizPage() {
       }
       setQuiz(data.quiz as QuizItem[])
     } catch (e: any) {
-      setError(e.message || "Unknown error")
+      setError(e?.message || "Failed to contact quiz service. Is the backend running?")
     } finally {
       setLoading(false)
     }
