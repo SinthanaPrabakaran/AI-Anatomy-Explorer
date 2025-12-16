@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Right Lung",
+    "short_description": "The larger of the two lungs, located on the right side of the chest, responsible for gas exchange.",
+    "position": {
+      "x": 0.4,
+      "y": 0.1,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Left Lung",
+    "short_description": "The smaller of the two lungs, located on the left side of the chest, also responsible for gas exchange.",
+    "position": {
+      "x": -0.4,
+      "y": 0.1,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Trachea",
+    "short_description": "The windpipe that carries air to and from the lungs.",
+    "position": {
+      "x": 0.0,
+      "y": 0.7,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Bronchi",
+    "short_description": "The two main branches of the trachea that lead into the lungs.",
+    "position": {
+      "x": 0.0,
+      "y": 0.4,
+      "z": 0.0
+    }
+  }
+]

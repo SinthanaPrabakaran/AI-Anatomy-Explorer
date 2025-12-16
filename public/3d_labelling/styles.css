@@ -1,0 +1,81 @@
+/* General layout */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #0b0b0b;
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Top info bar (title + organ selector) */
+#info {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+#title-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ff5f5f;
+}
+
+select {
+  padding: 6px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+select option {
+  background: #222;
+  color: white;
+}
+
+/* Canvas container (for the 3D renderer) */
+#canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Info panel for label descriptions */
+#info-panel {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 260px;
+  padding: 12px 15px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  line-height: 1.5;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+#label-title {
+  font-size: 16px;
+  color: #ff5f5f;
+  margin-bottom: 6px;
+}
+
+#label-info {
+  font-size: 14px;
+  color: #ddd;
+}

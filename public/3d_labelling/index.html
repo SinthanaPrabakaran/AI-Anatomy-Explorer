@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title id="page-title">3D Organ Label Viewer</title>
+  <link rel="icon" href="data:,">
+  
+  <!-- External stylesheet -->
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Three.js imports -->
+  <script async src="https://unpkg.com/es-module-shims@1.9.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.164/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Top info and organ selector -->
+  <div id="info">
+    <span id="title-text">3D Heart Label Viewer</span>
+    <input
+      type="text"
+      id="organ-input"
+      placeholder="Type organ name (heart, brain, liver, kidney, lungs) and press Enter"
+      style="margin-left: 10px; padding: 5px 10px; border-radius: 6px; border: 1px solid #ccc; width: 260px;"
+    />
+
+  </div>
+
+  <!-- Canvas container (for WebGL renderer) -->
+  <div id="canvas-container"></div>
+
+
+  <!-- Main script -->
+  <script type="module" src="./scripts/main.js"></script>
+</body>
+</html>

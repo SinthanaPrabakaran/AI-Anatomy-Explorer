@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Liver",
+    "short_description": "Main organ in the image.",
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Gallbladder",
+    "short_description": "Green sac-like organ for bile storage.",
+    "position": {
+      "x": -0.5,
+      "y": -0.6,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Hepatic vessels",
+    "short_description": "blood vessels that enter or exit the liver.",
+    "position": {
+      "x": 0.2,
+      "y": -0.3,
+      "z": 0.0
+    }
+  }
+]

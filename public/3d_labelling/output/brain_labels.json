@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Cerebrum",
+    "short_description": "The largest part of the brain, responsible for higher-level cognitive functions.",
+    "position": {
+      "x": 0.0,
+      "y": 0.3,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Cerebellum",
+    "short_description": "Located at the back of the brain, responsible for motor control and coordination.",
+    "position": {
+      "x": 0.0,
+      "y": -0.4,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Brainstem",
+    "short_description": "Connects the brain to the spinal cord, controlling basic life functions.",
+    "position": {
+      "x": 0.0,
+      "y": -0.7,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Frontal Lobe",
+    "short_description": "The front region of the cerebrum associated with reasoning, planning, and voluntary movement.",
+    "position": {
+      "x": 0.0,
+      "y": 0.7,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Parietal Lobe",
+    "short_description": "Located behind the frontal lobe; responsible for sensory perception and spatial awareness.",
+    "position": {
+      "x": 0.0,
+      "y": 0.2,
+      "z": 0.4
+    }
+  },
+  {
+    "name": "Temporal Lobe",
+    "short_description": "Located on the sides of the brain; involved in auditory processing and memory.",
+    "position": {
+      "x": 0.5,
+      "y": -0.1,
+      "z": 0.0
+    }
+  },
+  {
+    "name": "Occipital Lobe",
+    "short_description": "Located at the back of the brain; responsible for visual processing.",
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.6
+    }
+  },
+  {
+    "name": "Medulla Oblongata",
+    "short_description": "Part of the brainstem that controls vital functions like heart rate and breathing.",
+    "position": {
+      "x": 0.0,
+      "y": -0.8,
+      "z": 0.0
+    }
+  }
+]

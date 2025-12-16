@@ -3,16 +3,25 @@ import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.164/examples/js
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/controls/OrbitControls.js";
 import { addLabels } from "./labels.js";
 
+// --- SCENE SETUP ---
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x111111);
 
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+const camera = new THREE.PerspectiveCamera(
+  60,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  100
+);
 camera.position.set(0, 1.5, 3);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-document.body.appendChild(renderer.domElement);
+
+// ✅ make sure renderer attaches correctly even if #canvas-container missing
+const container = document.getElementById("canvas-container") || document.body;
+container.appendChild(renderer.domElement);
 
 const light = new THREE.DirectionalLight(0xffffff, 2);
 light.position.set(2, 2, 5);
@@ -22,39 +31,43 @@ scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-// Organ configuration
+window.__threeScenes = [scene];
+window.__threeCameras = [camera];
+
+// --- ORGAN CONFIG ---
 const organConfig = {
   heart: {
     model: "./models/heart.glb",
     labels: "./output/heart_labels.json",
-    title: "3D Heart Label Viewer"
+    title: "3D Heart Label Viewer",
   },
   kidney: {
     model: "./models/kidney.glb",
     labels: "./output/kidney_labels.json",
-    title: "3D Kidney Label Viewer"
-  },
-  brain: {
-    model: "./models/brain.glb",
-    labels: null, // No labels file yet
-    title: "3D Brain Viewer"
+    title: "3D Kidney Label Viewer",
   },
   lungs: {
     model: "./models/lungs2.glb",
-    labels: null, // No labels file yet
-    title: "3D Lungs Viewer"
+    labels: "./output/lungs_labels.json",
+    title: "3D Lungs Label Viewer",
+  },
+  brain: {
+    model: "./models/brain.glb",
+    labels: "./output/brain_labels.json",
+    title: "3D Brain Label Viewer",
   },
   liver: {
     model: "./models/liver3.glb",
-    labels: null, // No labels file yet
-    title: "3D Liver Viewer"
-  }
+    labels: "./output/liver_labels.json",
+    title: "3D Liver Label Viewer",
+  },
 };
 
 let currentModel = null;
 let currentLabelGroup = null;
-let sidebar = null;
+let sidebar = document.getElementById("info-panel");
 
+// --- INLINE ERROR DISPLAY ---
 function showInlineError(message) {
   const el = document.createElement("div");
   el.style.position = "absolute";
@@ -68,11 +81,10 @@ function showInlineError(message) {
   el.style.zIndex = "9999";
   el.textContent = message;
   document.body.appendChild(el);
-  
-  // Remove after 5 seconds
   setTimeout(() => el.remove(), 5000);
 }
 
+// --- CAMERA FIT ---
 function frameCameraToObject(object) {
   const box = new THREE.Box3().setFromObject(object);
   const size = box.getSize(new THREE.Vector3());
@@ -83,8 +95,7 @@ function frameCameraToObject(object) {
   const fitWidthDistance = fitHeightDistance / camera.aspect;
   const distance = 1.2 * Math.max(fitHeightDistance, fitWidthDistance);
 
-  const direction = new THREE.Vector3(0, 0, 1);
-  camera.position.copy(center).add(direction.multiplyScalar(distance));
+  camera.position.copy(center.clone().add(new THREE.Vector3(0, 0, distance)));
   controls.target.copy(center);
   camera.near = Math.max(distance / 100, 0.01);
   camera.far = distance * 100;
@@ -92,82 +103,55 @@ function frameCameraToObject(object) {
   controls.update();
 }
 
-function createSidebar(organType) {
-  // Remove existing sidebar
-  if (sidebar) {
-    sidebar.remove();
-  }
-  
-  sidebar = document.createElement("div");
-  sidebar.id = "info-panel";
-  sidebar.style.position = "absolute";
-  sidebar.style.top = "20px";
-  sidebar.style.right = "20px";
-  sidebar.style.width = "260px";
-  sidebar.style.padding = "12px";
-  sidebar.style.background = "rgba(0,0,0,0.6)";
-  sidebar.style.borderRadius = "10px";
-  sidebar.style.color = "white";
-  sidebar.style.fontFamily = "Segoe UI, sans-serif";
-  sidebar.style.transition = "all 0.3s ease";
-  sidebar.innerHTML = `<h3>Click a label</h3><p>Select any label to learn more.</p>`;
-  document.body.appendChild(sidebar);
-}
-
+// --- LABEL CLICK INTERACTIONS ---
 function enableLabelClick(labelGroup) {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
 
-  // Click listener
   window.addEventListener("click", (event) => {
     if (!labelGroup || !labelGroup.children) return;
-    
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
-
     const intersects = raycaster.intersectObjects(labelGroup.children);
     if (intersects.length > 0) {
       const clicked = intersects[0].object.userData;
       if (sidebar) {
         sidebar.innerHTML = `
-          <h3>${clicked.name}</h3>
-          <p>${clicked.short_description}</p>
+          <h3 id="label-title">${clicked.name}</h3>
+          <p id="label-info">${clicked.short_description}</p>
         `;
       }
     }
   });
 }
 
+// --- LOAD ORGAN ---
 async function loadOrgan(organType) {
   const config = organConfig[organType];
-  if (!config) {
-    showInlineError(`Unknown organ: ${organType}`);
-    return;
-  }
+  if (!config) return showInlineError(`Unknown organ: ${organType}`);
 
-  // Update title
+  // Update header text
   const titleElement = document.getElementById("title-text");
-  if (titleElement) {
-    titleElement.textContent = config.title;
-  }
+  if (titleElement) titleElement.textContent = config.title;
 
-  // Remove old model and labels
-  if (currentModel) {
-    scene.remove(currentModel);
-    currentModel = null;
-  }
-  
+  // Clear previous model and labels
+  if (currentModel) scene.remove(currentModel);
   if (currentLabelGroup) {
+    currentLabelGroup.traverse((obj) => {
+      if (obj.geometry) obj.geometry.dispose();
+      if (obj.material) obj.material.dispose();
+    });
     scene.remove(currentLabelGroup);
-    // Remove all lines
-    const lines = scene.children.filter(child => child.type === 'Line');
-    lines.forEach(line => scene.remove(line));
-    currentLabelGroup = null;
   }
 
-  // Create sidebar
-  createSidebar(organType);
+  // Reset sidebar
+  if (sidebar) {
+    sidebar.innerHTML = `
+      <h3 id="label-title">Click a label</h3>
+      <p id="label-info">Select any floating label on the 3D model to learn more.</p>
+    `;
+  }
 
   // Load model
   const loader = new GLTFLoader();
@@ -177,53 +161,51 @@ async function loadOrgan(organType) {
       const model = gltf.scene;
       currentModel = model;
       scene.add(model);
-      console.log("Model loaded", model);
       frameCameraToObject(model);
 
-      // Load labels after model
-      if (config.labels) {
-        fetch(config.labels)
-          .then((res) => {
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            return res.json();
-          })
-          .then((labels) => {
-            currentLabelGroup = addLabels(scene, labels);
-            enableLabelClick(currentLabelGroup);
-          })
-          .catch((err) => {
-            console.error("Failed to load labels:", err);
-            showInlineError(`Failed to load labels: ${err}`);
-          });
-      } else {
-        // No labels available, show basic info
-        if (sidebar) {
-          sidebar.innerHTML = `<h3>${config.title}</h3><p>Model loaded successfully. No labels available yet.</p>`;
-        }
-      }
+      // Load labels
+      fetch(config.labels)
+        .then((res) => res.json())
+        .then((labels) => {
+          currentLabelGroup = addLabels(scene, labels, currentModel);
+          enableLabelClick(currentLabelGroup);
+        })
+        .catch((err) => {
+          console.error("Failed to load labels:", err);
+          showInlineError("Failed to load labels.");
+        });
     },
     undefined,
     (err) => {
       console.error("Failed to load model:", err);
-      showInlineError("Failed to load model. See console for details.");
+      showInlineError("Failed to load model.");
     }
   );
 }
 
-// Set up input listener
-const organSelector = document.getElementById("organ-selector");
-if (organSelector) {
-  organSelector.addEventListener("keydown", (e) => {
+// --- ORGAN INPUT ---
+const organInput = document.getElementById("organ-input");
+const validOrgans = Object.keys(organConfig); // ["heart", "kidney", "lungs", "brain", "liver"]
+
+// Load default organ initially
+loadOrgan("heart");
+
+// Listen for Enter key in text input
+if (organInput) {
+  organInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-      const inputValue = e.target.value.toLowerCase().trim();
-      if (inputValue === "heart" || inputValue === "kidney" || inputValue === "brain" || inputValue === "lungs" || inputValue === "liver") {
-        loadOrgan(inputValue);
+      const organ = e.target.value.trim().toLowerCase();
+      if (validOrgans.includes(organ)) {
+        loadOrgan(organ);
+      } else {
+        showInlineError("Please enter a valid organ name: heart, kidney, lungs, brain, or liver.");
       }
     }
   });
 }
 
 
+// --- ANIMATION LOOP ---
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
@@ -231,6 +213,7 @@ function animate() {
 }
 animate();
 
+// --- HANDLE RESIZE ---
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
