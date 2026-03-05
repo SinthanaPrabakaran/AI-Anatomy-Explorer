@@ -4,11 +4,14 @@ from dotenv import load_dotenv
 from google import genai
 import json
 import re
+from flask_cors import CORS
+
 
 # Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 # Initialize Gemini client
 api_key = os.getenv('GEMINI_API_KEY')
@@ -19,7 +22,7 @@ else:
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return "NeuroMap API running"
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
@@ -44,7 +47,7 @@ def chat():
         
         # Generate response using the client
         response = client.models.generate_content(
-            model="gemini-2.0-flash-exp",
+            model="gemini-1.5-flash",
             contents=prompt
         )
         
@@ -94,7 +97,7 @@ def generate_quiz():
         
         # Generate quiz using the client
         response = client.models.generate_content(
-            model="gemini-2.0-flash-exp",
+            model="gemini-1.5-flash",
             contents=prompt
         )
         
@@ -128,5 +131,5 @@ def generate_quiz():
             'message': str(e)
         }), 500
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

@@ -32,7 +32,7 @@ def generate_quiz(api_key, organ_topic="heart", difficulty="medium", num_questio
 
         print("📡 Requesting quiz from Gemini...")
         response = client.models.generate_content(
-            model="gemini-2.0-flash-exp",
+            model="gemini-1.5-flash",
             contents=prompt
         )
 
