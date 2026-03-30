@@ -1,2 +1,78 @@
-# AI-Anatomy-Explorer
-AI-powered platform that combines 3D visualization of flat 2D textbook diagrams with labels, context, and self-testing
+# 🧠 AI Anatomy Explorer
+
+An interactive learning platform that combines **3D anatomy visualization** with **AI-powered quiz generation** to make studying human anatomy more engaging, visual, and intuitive.
+
+---
+
+## 🚀 Features
+
+### 🫀 3D Anatomy Visualization
+
+- Dynamically load organ models (heart, brain, lungs, etc.)
+- Accurate **label placement using JSON-based coordinates**
+- Interactive labels → display **name + description**
+- Smooth animations and intuitive controls
+
+---
+
+### 🧪 AI Quiz Generation
+
+- Generate quizzes based on:
+  - Organ
+  - Difficulty (Easy / Medium / Hard)
+  - Number of questions
+- Powered by **Google Gemini API (LLM)**
+- Tracks:
+  - Score
+  - Selected answers
+  - Explanations
+
+---
+
+### 🎨 Modern UI/UX
+
+- Built with **Next.js + Tailwind CSS**
+- Smooth animations using **Framer Motion**
+- Clean, responsive, and user-friendly design
+
+---
+
+## 🧩 Tech Stack
+
+### Frontend
+- Next.js (App Router)
+- React + TypeScript
+- Tailwind CSS
+- Framer Motion
+- Three.js (3D Rendering)
+
+### Backend
+- Flask (Python)
+- Gunicorn (Production Server)
+- Flask-CORS
+
+### AI Integration
+- Google Gemini API
+
+### Deployment
+- Frontend → Vercel
+- Backend → Render
+
+---
+
+## 🧠 Architecture
+User
+↓
+Next.js Frontend (Vercel)
+↓
+Next.js API Route (/api/quiz)
+↓
+Flask Backend (Render)
+↓
+Gemini API
+
+
+
+
+
+
