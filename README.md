@@ -58,18 +58,6 @@ An interactive learning platform that combines **3D anatomy visualization** with
 - Frontend → Vercel
 - Backend → Render
 
----
-
-## 🧠 Architecture
-User
-↓
-Next.js Frontend (Vercel)
-↓
-Next.js API Route (/api/quiz)
-↓
-Flask Backend (Render)
-↓
-Gemini API
 
 
 
