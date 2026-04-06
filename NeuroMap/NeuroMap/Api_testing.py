@@ -4,7 +4,7 @@ def test_gemini_api(api_key, test_message="What is the kidney?"):
     print("=" * 60)
     print("Testing Direct Gemini API...")
     print("=" * 60)
-    print(f"\nModel: gemini-1.5-flash")
+    print(f"\nModel: gemini-3-flash-preview")
     print(f"Test Message: {test_message}\n")
     
     try:
@@ -15,7 +15,7 @@ def test_gemini_api(api_key, test_message="What is the kidney?"):
         
         # Generate content
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-3-flash-preview",
             contents=f"You are a helpful anatomy teacher. Give concise answers.\n\nQuestion: {test_message}"
         )
         

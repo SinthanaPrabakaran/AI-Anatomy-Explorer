@@ -30,9 +30,9 @@ def generate_quiz(api_key, organ_topic="heart", difficulty="medium", num_questio
         ]
         """
 
-        print("📡 Requesting quiz from Gemini...")
+        print(" Requesting quiz from Gemini...")
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-3-flash-preview",
             contents=prompt
         )
 
@@ -46,18 +46,18 @@ def generate_quiz(api_key, organ_topic="heart", difficulty="medium", num_questio
         try:
             quiz_data = json.loads(cleaned_text)
         except json.JSONDecodeError:
-            print("\n⚠️ Model returned non-JSON response. Displaying raw output instead:\n")
+            print("\n Model returned non-JSON response. Displaying raw output instead:\n")
             print(text_response)
             return False
 
-        print("\n✅ QUIZ GENERATED SUCCESSFULLY!\n")
+        print("\n QUIZ GENERATED SUCCESSFULLY!\n")
         print("-" * 60)
         for i, q in enumerate(quiz_data, 1):
             print(f"Q{i}. {q['question']}")
             for opt in q["options"]:
                 print(f"   - {opt}")
-            print(f"✅ Answer: {q['answer']}")
-            print(f"💡 {q['explanation']}\n")
+            print(f" Answer: {q['answer']}")
+            print(f"{q['explanation']}\n")
         print("-" * 60)
 
         print("\n✅ Your Gemini API and Quiz Generation are working perfectly!")

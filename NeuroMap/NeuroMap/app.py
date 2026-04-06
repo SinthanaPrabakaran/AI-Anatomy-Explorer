@@ -47,7 +47,7 @@ def chat():
         
         # Generate response using the client
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-3-flash-preview",
             contents=prompt
         )
         
@@ -97,7 +97,7 @@ def generate_quiz():
         
         # Generate quiz using the client
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-3-flash-preview",
             contents=prompt
         )
         
