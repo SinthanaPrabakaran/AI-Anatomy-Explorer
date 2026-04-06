@@ -2,6 +2,9 @@
 
 An interactive learning platform that combines **3D anatomy visualization** with **AI-powered quiz generation** to make studying human anatomy more engaging, visual, and intuitive.
 
+## Deployed App Link:
+https://neuromap-ai-anatomy-explorer.vercel.app/
+
 ---
 
 ## 🚀 Features
